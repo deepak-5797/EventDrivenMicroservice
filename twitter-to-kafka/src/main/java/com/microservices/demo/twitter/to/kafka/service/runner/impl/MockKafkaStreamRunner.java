@@ -45,11 +45,12 @@ public class MockKafkaStreamRunner implements StreamRunner {
             "spring"
     };
 
-    public static final String tweetAsRawJson  ="{" + "\"created_date\":\"{0}\""
-                            +  "\"created_date\":\"{0}\""
-                            + "\"id\":\"{0}\""
-                            + "\"text\":\"{0}\""
-                            + "\"user\":\"{ \"id\" : \"{3}\"}\"" + "}" ;
+    private static final String tweetAsRawJson = "{" +
+            "\"created_at\":\"{0}\"," +
+            "\"id\":\"{1}\"," +
+            "\"text\":\"{2}\"," +
+            "\"user\":{\"id\":\"{3}\"}" +
+            "}";
 
 
     public static  final String TWITTER_STATUS_DATE_FORMAT ="EEE MMM dd HH:mm:ss zzz yyyy";

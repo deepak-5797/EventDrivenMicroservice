@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Scope;
 import java.util.Arrays;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "com.microservices.demo")
 public class TwitterToKafkaServiceApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(TwitterToKafkaServiceApplication.class);

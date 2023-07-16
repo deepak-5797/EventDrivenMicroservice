@@ -35,10 +35,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>com.microservice.demo</groupId>
+            <artifactId>app-config-data</artifactId>
         </dependency>
+
 
     </dependencies>
 

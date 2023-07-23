@@ -1,6 +1,6 @@
 package com.microservices.demo.twitter.to.kafka.service;
 
-import com.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+import com.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import com.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
@@ -11,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 
 import java.util.Arrays;

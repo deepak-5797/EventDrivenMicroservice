@@ -1,4 +1,4 @@
-package com.microservice.demo.config;
+package com.microservices.demo.config;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Slf4j
 @Data
+@Slf4j
 @Configuration
-@Component
+@ConfigurationProperties(prefix = "twitter-to-kafka-service")
 public class TwitterToKafkaServiceConfigData {
     private List<String> twitterKeywords;
     private String welcomeMessage;
@@ -21,7 +21,4 @@ public class TwitterToKafkaServiceConfigData {
     private  Long mockSleepMs;
     private Integer mockMinTweetLength;
     private Integer mockMaxTweetLength;
-
-
-    private static final Logger logger = LoggerFactory.getLogger(TwitterToKafkaServiceConfigData.class);
 }

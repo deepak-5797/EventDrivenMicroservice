@@ -4,8 +4,6 @@ import com.microservices.demo.twitter.to.kafka.service.Exception.TwitterToKafkaE
 import com.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import com.microservices.demo.twitter.to.kafka.service.listener.TwiterKafkaStatusListener;
 import com.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -17,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
-import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 

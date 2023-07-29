@@ -7,11 +7,10 @@
         <groupId>com.microservices.demo</groupId>
         <artifactId>microservices-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>kafka-admin</artifactId>
+    <artifactId>common-config</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -25,21 +24,26 @@
             <artifactId>app-config-data</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
+            <version>2.0.2</version>
         </dependency>
 
         <dependency>
-        <groupId>org.springframework.kafka</groupId>
-        <artifactId>spring-kafka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.7</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>3.1.2</version>
         </dependency>
 
     </dependencies>
+
+
 
 </project>

@@ -17,7 +17,6 @@
 
     <artifactId>kafka-model</artifactId>
 
-    <dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.apache.avro</groupId>
@@ -25,7 +24,6 @@
             <version>${avro.version}</version>
         </dependency>
     </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>

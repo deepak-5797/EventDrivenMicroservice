@@ -2,7 +2,7 @@ package com.microservicess.demo.kafka.admin.config.client;
 
 import com.microservices.demo.config.KafkaConfigData;
 import com.microservices.demo.config.RetryConfigData;
-import com.microservicess.demo.kafka.admin.exception.KafkaRuntimeException;
+import com.microservicess.demo.kafka.admin.exception.KafkaClientException;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Component
@@ -47,9 +48,62 @@ public class KafkaAdminClient {
         }
         catch(Throwable e)
         {
-            throw new KafkaRuntimeException("Reached max number of retry for kafka topics");
+            throw new KafkaClientException("Reached max number of retry for kafka topics");
         }
         checkTopicsCreated();
+    }
+
+    public void checkTopicsCreated(){
+        Collection<TopicListing> topics =  getTopics();
+        int retryCount = 1;
+        Integer maxRetry = retryConfigData.getMaxAttempts();
+        Integer multipler = retryConfigData.getMultipler().intValue();
+        Long sleepTimeMs = retryConfigData.getSleepTimeMs();
+        for(String topic: kafkaConfigData.getTopicNamesToCreate()) {
+            while(!isTopicCreated(topics,topic)){
+                checkMaxRetry(retryCount++, maxRetry);
+                sleep(sleepTimeMs);
+                sleepTimeMs += multipler;
+            }
+        }
+    }
+
+    public void schemaRegistry(){
+        int retryCount =1;
+        Integer maxRetry = retryConfigData.getMaxAttempts();
+        int multiplier = retryConfigData.getMultipler().intValue();
+        Long sleepTimeMs =  retryConfigData.getSleepTimeMs();
+
+        while(){
+                checkMaxRetry(retryCount++,maxRetry);
+                sleep(sleepTimeMs);
+            sleepTimeMs *=multiplier;
+        }
+    }
+
+    private void sleep(Long sleepTimeMs) {
+        try{
+            Thread.sleep(sleepTimeMs);
+        }
+        catch (Exception e)
+        {
+            throw new KafkaClientException("Error while sleeping for waiting new created topics!!");
+        }
+    }
+
+    private void checkMaxRetry(int i, Integer maxRetry) {
+        if(i>maxRetry)
+        {
+            throw new KafkaClientException("Reached max number of rety for reading kafka topic(s)!");
+        }
+    }
+
+    private boolean isTopicCreated(Collection<TopicListing> topics, String topicName) {
+        if(topics==null)
+        {
+            return false;
+        }
+        return topics.stream().anyMatch(topic -> topic.name().equals(topicName));
     }
 
     private CreateTopicsResult doCreateTopics(RetryContext retryContext)
@@ -65,7 +119,7 @@ public class KafkaAdminClient {
         return adminClient.createTopics(kafkaTopic);
     }
 
-    private Collection<TopicListing> getTopic()
+    private Collection<TopicListing> getTopics()
     {
         Collection<TopicListing> topics;
 
@@ -74,19 +128,23 @@ public class KafkaAdminClient {
         }
         catch (Exception e)
         {
-            throw new KafkaRuntimeException("Reached max number of retry for kafka topics");
+            throw new KafkaClientException("Reached max number of retry for kafka topics");
         }
         return topics;
     }
 
-    private <T> doGetTopics()
+    private Collection<TopicListing> doGetTopics(RetryContext retryContext) throws ExecutionException,InterruptedException
     {
+        logger.info("Reading kafka topic {}, attemp {}",kafkaConfigData.getTopicNamesToCreate().toArray(),retryContext.getRetryCount());
+        Collection<TopicListing>  topics = adminClient.listTopics().listings().get();
 
+        if(topics!=null)
+        {
+            topics.forEach(topic -> logger.info("Topic with name {}",topic.name()));
+        }
+        return topics;
     }
 
-    public void checkTopicsCreated()
-    {
 
-    }
 
 }

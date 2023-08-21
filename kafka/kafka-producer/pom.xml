@@ -13,6 +13,34 @@
     <groupId>org.example</groupId>
     <artifactId>kafka-producer</artifactId>
 
+    <repositories>
+        <repository>
+            <id>icm</id>
+            <url>http://maven.icm.edu.pl/artifactory/repo/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.microservices.demo</groupId>
+            <artifactId>app-config-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.microservices.demo</groupId>
+            <artifactId>kafka-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+        </dependency>
+
+    </dependencies>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
